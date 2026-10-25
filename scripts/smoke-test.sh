@@ -24,7 +24,7 @@ cleanup() {
   rm -rf -- "$smoke_dir"
 }
 trap cleanup EXIT
-timeout 30s env TOBYWRITE_DATA_DIR="$smoke_dir/state" TOBYWRITE_NON_UNIQUE=1 TOBYWRITE_SMOKE_TEST=1 G_DEBUG=fatal-criticals \
+timeout 45s env TOBYWRITE_DATA_DIR="$smoke_dir/state" TOBYWRITE_THEME_DIR="$smoke_dir/state/data/theme" TOBYWRITE_NON_UNIQUE=1 TOBYWRITE_SMOKE_TEST=1 G_DEBUG=fatal-criticals \
   target/debug/tobywrite 2>&1 | tee "$smoke_dir/gtk.log"
 grep -q 'TOBYWRITE_SMOKE_OK' "$smoke_dir/gtk.log"
 target/debug/tobywrite --check assets/Welcome.md

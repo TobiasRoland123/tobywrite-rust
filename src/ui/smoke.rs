@@ -354,7 +354,14 @@ fn complete(smoke: &Rc<Smoke>) -> Result<()> {
         .context("recovery fixture")?;
     smoke.state.add_document(Document::from_draft(draft));
     smoke.state.snapshot();
-    finish(smoke, None);
+    let smoke = smoke.clone();
+    super::smoke_theme::run(smoke.state.clone(), move |result| match result {
+        Ok(checks) => {
+            smoke.checks.borrow_mut().extend(checks);
+            finish(&smoke, None);
+        }
+        Err(error) => finish(&smoke, Some(format!("{error:#}"))),
+    });
     Ok(())
 }
 

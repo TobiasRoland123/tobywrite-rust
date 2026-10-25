@@ -529,7 +529,7 @@ impl Editor {
         self.styler.parse(
             &self.buffer,
             &self.document.borrow().file.text,
-            writer.dark(),
+            &writer.palette.borrow(),
             prefs.show_syntax,
             prefs.focus_mode,
         );

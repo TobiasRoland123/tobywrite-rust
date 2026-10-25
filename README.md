@@ -45,6 +45,14 @@ The installer builds the release binary first. To install a release you already 
 - Text input, selection, and undo are provided by GTK. The editor accepts international text input through the active desktop input method. It does not currently integrate with a platform spell-check service.
 - Print through the GTK print dialog, export an offline HTML file, or export a PDF from a graphical session.
 
+### Omarchy themes
+
+System appearance follows Omarchy's active `colors.toml`, including changes made while Tobywrite is open. The editor, Markdown colors, selection, menus, and app dialogs share the palette. Colors used for text are adjusted when needed for contrast. For example, switching from Retro 82 to Rose Pine changes an open document from dark blue to light paper without changing its text, selection, or undo history.
+
+Light and Dark keep the brightness you choose. Tobywrite uses the Omarchy palette when it matches that choice and its built-in palette otherwise. Returning to System follows the active theme again. Native file pickers and print dialogs provided by the desktop follow the desktop's own styling.
+
+Tobywrite reads `~/.local/state/omarchy/current/theme/colors.toml`, with support for XDG state paths and the older `~/.config/omarchy/current/theme` location. It checks for updates once per second and keeps the last valid palette while files are missing or incomplete during a switch. It also accepts legacy `bg`/`fg` and ANSI color keys. Without an Omarchy palette, System follows GTK's light/dark setting. No desktop configuration is changed.
+
 ### Shortcuts
 
 | Action | Shortcut |
@@ -105,7 +113,7 @@ Run formatting, lint, and the test suite with:
 ./scripts/test.sh
 ```
 
-From a graphical session, run `./scripts/smoke-test.sh` to exercise the native editor, clipboard, undo, save and close dialogs, recovery, and PDF export. It uses temporary documents and settings. On Wayland, it restores the clipboard after the checks when `wl-clipboard` is available.
+From a graphical session, run `./scripts/smoke-test.sh` to exercise the native editor, clipboard, undo, save and close dialogs, recovery, live theme changes, and PDF export. It uses temporary documents, settings, and theme fixtures. On Wayland, it restores the clipboard after the checks when `wl-clipboard` is available. Set `TOBYWRITE_THEME_CAPTURE_DIR` to a directory to save native widget screenshots during the theme checks. `TOBYWRITE_THEME_DIR` can point a development instance at a separate theme directory; the smoke script sets this automatically.
 
 The library code is organized into `editing` for Markdown operations, `text_file` for encoding and line endings, `storage` for documents/settings/recovery and folder indexing, and `export`/`printing` for output. GTK application and editor code lives in `src/ui`.
 
