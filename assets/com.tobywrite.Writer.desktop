@@ -1,0 +1,13 @@
+[Desktop Entry]
+Type=Application
+Name=Tobywrite
+GenericName=Markdown Editor
+Comment=A quiet place to write Markdown
+Exec=tobywrite %F
+Icon=com.tobywrite.Writer
+Terminal=false
+Categories=Utility;TextEditor;
+MimeType=text/markdown;text/x-markdown;text/plain;
+StartupNotify=true
+StartupWMClass=com.tobywrite.Writer
+Keywords=markdown;notes;writing;text;
